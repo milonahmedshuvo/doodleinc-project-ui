@@ -23,7 +23,7 @@ const Blogpage = () => {
             
             <div>
             <p  className='lato my-2'l> {blog?.title} </p>
-             <p> {blog.body.substring(0, 300 )} <Link className='text-black font-bold'>...reed more</Link> </p>
+             <p className='work-sans'> {blog.body.substring(0, 300 )} <Link to={`/blogdatails/${blog.id}`} className='text-black font-bold'>...reed more</Link> </p>
             </div>
 
 
