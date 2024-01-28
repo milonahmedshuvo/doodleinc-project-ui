@@ -8,12 +8,7 @@ export default {
   ],
   theme: {
     
-    extend: {
-      colors :{
-        indigo: "#32292F",
-        white: "#FFFFFF"
-      },
-    },
+    extend: {},
   },
   
 }
