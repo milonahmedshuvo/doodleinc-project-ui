@@ -5,6 +5,7 @@ import { router } from './layout/routes';
 import toast, { Toaster } from 'react-hot-toast';
 
 
+
 function App() {
   
 
@@ -13,6 +14,7 @@ function App() {
       
       <RouterProvider router={router} ></RouterProvider>
        <Toaster/>
+      
     </div>
   )
 }
