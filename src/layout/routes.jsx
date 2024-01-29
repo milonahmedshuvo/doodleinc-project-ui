@@ -4,6 +4,7 @@ import Blogpage from "../components/blogpage/Blogpage";
 import Newblog from "../components/newblog/Newblog";
 import Blogdatails from "../components/blogpage/Blogdatails";
 import Allblogsmanage from "../components/allblogs/Allblogsmanage";
+import Favorite from "../components/fovorite/Favorite";
 
 export const router = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
            {
             path: "/allblogs",
             element: <Allblogsmanage/>
+           },
+           {
+            path: "/favorite",
+            element: <Favorite/>
            }
 
     ]

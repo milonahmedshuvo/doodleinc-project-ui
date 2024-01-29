@@ -1,20 +1,35 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 const Modal = ({ comment }) => {
 
-
-    const handleCommentUpdate = (event) => {
+           const {_id} = comment;
+    const handleCommentUpdate = ( event ) => {
         event.preventDefault()
           const name = event.target.name.value;
           const email = event.target.email.value;
           const comment = event.target.comment.value;
-          console.log(id)
+          
           const updatedoc = {
             name,
             email,
             comment
           }
           console.log(updatedoc)
+          fetch(`http://localhost:5000/commentUpdate/${_id}`, {
+            method: "PATCH",
+            headers: {
+              "content-type": "application/json"
+            },
+            body: JSON.stringify(updatedoc)
+          })
+          .then((res) => res.json())
+          .then((data) =>{
+            toast.success("comment update succes")
+          } )
+          .catch((err) => {
+            toast.error("comment faild")
+          })
     }
 
 

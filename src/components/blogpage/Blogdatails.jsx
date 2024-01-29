@@ -7,6 +7,7 @@ import { comment } from 'postcss'
 
 const Blogdatails = () => {
     const [count, setcount] = useState(0)
+    const [comment, setComment] = useState({})
     let {id:blogId} = useParams()
     const blog = useLoaderData()
     const {id, title, body} = blog
@@ -70,9 +71,10 @@ const Blogdatails = () => {
 
           
     
-
-          var accountlist = [];
+    
+          
     const handleCommentpost = (event) => {
+      var comlist = []
         event.preventDefault()
         const name = event.target.name.value;
         const email = event.target.email.value;
@@ -85,7 +87,9 @@ const Blogdatails = () => {
             email, 
             body: comment
         }
-         
+        if(commentData){
+          comlist.push(commentData)
+        }
 
         fetch("http://localhost:5000/commentpost", {
             method: "POST",
@@ -105,10 +109,13 @@ const Blogdatails = () => {
             toast.error('fail comment!')
         })
           
-        accountlist.push(commentData)
-        localStorage.setItem("comments", JSON.stringify(accountlist))
-        console.log(accountlist)
+        
+        console.log(comlist)     
     }
+
+   
+
+    
 
 
 
@@ -127,6 +134,10 @@ const Blogdatails = () => {
      }
 
 
+     const handleCommentUpdate = ( comment ) => {
+           setComment(comment)
+           document.getElementById("my_modal_1").showModal()
+     }
 
 
 
@@ -145,10 +156,10 @@ const Blogdatails = () => {
 
         <form onSubmit={handleCommentpost} >
         <input type="text" name="name" required placeholder='Name' id="" className='border border-gray-300 py-2 rounded  pl-2 w-full mx-auto outline-none' />
-        <input type="text" name="email" required placeholder='Email' id="" className='border border-gray-300 py-2 rounded  pl-2 w-full mx-auto outline-none' />
+        <input type="text" name="email" required placeholder='Email' id="" className='border my-2 border-gray-300 py-2 rounded  pl-2 w-full mx-auto outline-none' />
 
         <input type="text" name="comment" required placeholder='Comment' id="" className='border border-gray-300 py-2 rounded  pl-2 w-full mx-auto outline-none' />
-        <input type="submit" value="Comment" className='bg-black text-white font-semibold px-4 py-1 mt-2 ' />
+        <input type="submit" value="Comment" className='bg-slate-500 text-white font-semibold px-4 py-1 mt-2 ' />
         </form>
       </div>
 
@@ -168,14 +179,16 @@ const Blogdatails = () => {
   
                    <div className='flex justify-between items-center mt-5'>
                    
-                   <input type="button" value="Update" className='bg-green-600 text-white font-normal py-1 px-4 rounded' onClick={() => document.getElementById("my_modal_1").showModal()} />
+                   <input onClick={()=> handleCommentUpdate(comment)} type="button" value="Update" className='bg-green-600 text-white font-normal py-1 px-4 rounded'  />
                    
-                   <Modal comment={comment} ></Modal>
+                   
                   
                    <input type="button" onClick={()=> handleCommentDelete(comment._id)}  value="Delate" className='bg-red-400 text-white font-normal py-1 px-4 rounded' />
                    </div>
               </div>)
           }
+
+                  <Modal comment={comment} ></Modal>
         </div> 
         
       </div>

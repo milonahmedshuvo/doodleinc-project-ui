@@ -1,55 +1,93 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa";
+import Blog from "./Blog";
+import { useQuery } from "@tanstack/react-query";
+
 
 const Blogpage = () => {
-  const [blogs, setblogs] = useState([]);
-  const [isopen , setIsopen] = useState(false)
+  const [postsData, setPostsData] = useState([]);
+  const [loading, setLoading] = useState(false)
+  const [favoritePosts, setFavoritePosts] = useState([]);
+
+
   useEffect(() => {
     fetch("http://localhost:5000/blogs")
       .then((res) => res.json())
-      .then((data) => setblogs(data))
+      .then((data) =>{
+        setLoading(true)
+        setPostsData(data)
+      })
       .catch((err) => console.log(err));
   }, []);
 
-  const handletoggle = (i) => {
-      setIsopen(!isopen)
-      console.log(i)
-  }
+  
+    
+    
+
+  
+
+  useEffect(() => {
+    // Load favorite posts from local storage on app start
+    const loadedFavoritePosts = [];
+
+    postsData.forEach((post) => {
+      console.log("post ", post)
+      if (localStorage.getItem(`favorite_${post.id}`) === "true") {
+        loadedFavoritePosts.push(post);
+      }
+    });
+    setFavoritePosts(loadedFavoritePosts);
+  }, [loading]);
+
+  localStorage.setItem("items", JSON.stringify(favoritePosts))
+  console.log("fovorite", favoritePosts)
+  
+
+  const handleToggleFavorite = (postId) => {
+    // Add or remove post from favorite list
+    const updatedFavoritePosts = [...favoritePosts];
+    const postIndex = updatedFavoritePosts.findIndex(
+      (post) => post.id === postId
+    );
+
+    if (postIndex === -1) {
+      // Add post to favorite
+      const postToAdd = postsData?.find((post) => post.id === postId);
+      updatedFavoritePosts.push(postToAdd);
+    } else {
+      // Remove post from favorite
+      updatedFavoritePosts.splice(postIndex, 1);
+    }
+
+    setFavoritePosts(updatedFavoritePosts);
+  };
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="my-20">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {blogs?.map((blog, i) => (
-          <div key={i} className=" shadow-sm px-4 py-6 border rounded ">
-            <div>
-              <div className="flex justify-between items-center">
-                <p className="lato my-2" l>
-                  {" "}
-                  {blog?.title}{" "}
-                </p>
-
-
-                <FaRegHeart onClick={()=>handletoggle(i)} className={`${isopen? "text-2xl text-red-500": "text-2xl"}`}  />
-
-                <FaRegHeart className="text-2xl active:text-red-500" ></FaRegHeart>
-
-            
-              </div>
-
-              <p className="work-sans">
-                {" "}
-                {blog.body.substring(0, 300)}{" "}
-                <Link
-                  to={`/blogdatails/${blog.id}`}
-                  className="text-black font-bold"
-                >
-                  ...reed more
-                </Link>{" "}
-              </p>
-            </div>
-          </div>
-        ))}
+        {postsData?.map((post, i) => <Blog 
+        key={post.id}
+        post={post}
+        onToggleFavorite={handleToggleFavorite}
+        > </Blog> ) }
       </div>
     </div>
   );

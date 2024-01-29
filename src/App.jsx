@@ -10,7 +10,7 @@ function App() {
   
 
   return (
-    <div className='mx-10'>
+    <div className='px-5 max-w-screen-xl mx-auto '>
       
       <RouterProvider router={router} ></RouterProvider>
        <Toaster/>
