@@ -9,6 +9,7 @@ const Navber = () => {
       </div>
 
       <div className='flex items-center'>
+        <Link to="/allblogs" className='text-lg text-indigo font-semibold mx-4'>Blogs</Link>
         <Link to="/newblogpost" className='text-lg text-indigo font-semibold mx-4'> Newblog </Link>
         <Link className='text-lg text-indigo font-semibold mx-4' >Fovorite </Link>
       </div>

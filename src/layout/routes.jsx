@@ -3,6 +3,7 @@ import Rootlayout from "./Rootlayout";
 import Blogpage from "../components/blogpage/Blogpage";
 import Newblog from "../components/newblog/Newblog";
 import Blogdatails from "../components/blogpage/Blogdatails";
+import Allblogsmanage from "../components/allblogs/Allblogsmanage";
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
             path: "/blogdatails/:id",
             element: <Blogdatails/>,
             loader: async ( {params} ) => fetch(`http://localhost:5000/blog/${params.id}`)
+           },
+           {
+            path: "/allblogs",
+            element: <Allblogsmanage/>
            }
 
     ]
