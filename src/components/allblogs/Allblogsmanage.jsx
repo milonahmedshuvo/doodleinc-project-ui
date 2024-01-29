@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import Blogmodal from '../blogpage/Blogmodal'
 
 const Allblogsmanage = () => {
       const [blogs, setBlogs] = useState([])
-
+      const [updateData, setUpdateData] = useState({})
       useEffect(()=> {
         fetch("http://localhost:5000/blogs")
         .then((res) => res.json())
@@ -13,8 +14,9 @@ const Allblogsmanage = () => {
 
 
 
-      const handleblogUpdate = (id) => {
-        console.log(id)
+      const handleblogUpdate = (blog) => {
+        setUpdateData(blog)
+        document.getElementById("my_modal_1").showModal()
       }
 
       const handleblogDelete = (id) => {
@@ -45,13 +47,14 @@ const Allblogsmanage = () => {
             blogs?.map((blog, i) => <div key={i} className='border p-5 flex flex-col justify-between rounded'> 
               <p className='lato mb-2'>{blog.title}</p>
               <p className="work-sans"> {blog.body.substring(0, 300)}...</p>
-
               <div className='flex justify-between mt-2'>
-              <input onClick={()=> handleblogUpdate(blog._id)} type="button" className='text-white font-bold bg-slate-600 px-4 py-1' value="Update" />
-              <input onClick={()=> handleblogDelete(blog._id)} type="button" className='text-white font-bold bg-black px-4 py-1' value="Delete" />
+              <input onClick={() => handleblogUpdate(blog)} type="button" className='text-white font-bold bg-slate-500 px-4 py-1' value="Update" />
+              <input onClick={()=> handleblogDelete(blog._id)} type="button" className='text-white font-bold bg-gray-400 px-4 py-1' value="Delete" />
               </div>
              </div>)
         }
+
+       <Blogmodal updateData={updateData} ></Blogmodal>
     </div>
   )
 }

@@ -30,7 +30,7 @@ const Blogpage = () => {
                 </p>
 
 
-                {/* <FaRegHeart onClick={()=>handletoggle(i)} className={`${isopen? "text-2xl text-red-500": "text-2xl"}`}  /> */}
+                <FaRegHeart onClick={()=>handletoggle(i)} className={`${isopen? "text-2xl text-red-500": "text-2xl"}`}  />
 
                 <FaRegHeart className="text-2xl active:text-red-500" ></FaRegHeart>
 
