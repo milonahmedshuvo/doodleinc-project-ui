@@ -65,7 +65,7 @@ const [blogs, setBlogs] = useState([])
         <input type="text" name="title" required placeholder='Title' id="" className='border border-gray-400 py-2 rounded  pl-2 w-2/4 mx-auto outline-none' />
          <textarea name="description" required placeholder='Description' id="" cols="30" rows="5" className='border border-gray-400 py-2 rounded  pl-2 w-2/4 mx-auto outline-none' ></textarea>
 
-        <input type="submit" className='bg-indigo text-white py-1 text-lg font-semibold w-2/4 mx-auto uppercase' value="Submit" />
+        <input type="submit" className='bg-slate-500 text-white py-1 text-lg font-semibold w-2/4 mx-auto uppercase' value="Submit" />
        </form>
         </div>
     </div>
